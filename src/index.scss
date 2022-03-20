@@ -1,0 +1,51 @@
+@import "../src/components/Nav/Nav.scss";
+@import "./App.scss";
+
+@font-face {
+  font-family: "NHaasGroteskTXPro";
+  src: url("./fonts/NHaasGroteskTXPro-55Rg.ttf");
+  font-weight: lighter;
+}
+@font-face {
+  font-family: "NHaasGroteskTXPro";
+  src: url("./fonts/NHaasGroteskTXPro-65Md.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "NHaasGroteskTXPro";
+  src: url("./fonts/NHaasGroteskTXPro-75Bd.ttf");
+  font-weight: bold;
+}
+
+* {
+  font-family: "NHaasGroteskTXPro";
+  font-weight: normal;
+}
+body {
+  color: black;
+  margin: 0;
+  // font-family: "NHaasGroteskTXPro-75Bd";
+  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  //   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  //   sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a {
+  text-decoration: none;
+}
+
+// code {
+//   color: black;
+//   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+//     monospace;
+// }
+
+.MuiContainer-maxWidthXl {
+  max-width: 1440px;
+}
+
+.mat-ripple-element {
+  display: none;
+}

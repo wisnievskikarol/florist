@@ -1,0 +1,10 @@
+@use "../../App.scss";
+
+.navbar-register-button {
+  cursor: pointer;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 30px;
+  border: none;
+  background-color: App.$green;
+}
