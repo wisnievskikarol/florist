@@ -4,15 +4,16 @@ import Home from "./screens/Home/Home";
 import Nav from "./components/Nav/Nav";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-
+import Footer from "./components/Footer/Footer";
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home/>}/>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
