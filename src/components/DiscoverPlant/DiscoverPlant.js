@@ -13,45 +13,48 @@ const DiscoverPlant = () => {
     <Box sx={{ width: "100vw" }}>
       <Grid item xs={12}>
         <Grid container direction="row" alignItems="center" spacing={3}>
-          <Grid item xs={12} md={6} align="center">
-            <Typography
-              sx={{
-                fontFamily: "NHaasGroteskTXPro",
-                fontWeight: "bold",
-                fontSize: "50px",
-              }}
-            >
-              Odkryj roślinę
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily: "NHaasGroteskTXPro",
-                fontWeight: "bold",
-                fontSize: "50px",
-              }}
-            >
-              dla siebie
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                marginTop: "5%",
-                backgroundColor: "#0a5c5c",
-                textTransform: "none",
-                borderRadius: 30,
-              }}
-            >
+          <Grid item xs={12} md={6} align="left">
+            <Box sx={{ marginLeft: "20%" }}>
               <Typography
                 sx={{
                   fontFamily: "NHaasGroteskTXPro",
-                  fontWeight: "regular",
-                  paddingLeft: 1,
-                  paddingRight: 1,
+                  fontWeight: "bold",
+                  fontSize: "50px",
+                  textAlign: "",
                 }}
               >
-                Sprawdź!
+                Odkryj roślinę
               </Typography>
-            </Button>
+              <Typography
+                sx={{
+                  fontFamily: "NHaasGroteskTXPro",
+                  fontWeight: "bold",
+                  fontSize: "50px",
+                }}
+              >
+                dla siebie
+              </Typography>
+              <Button
+                variant="contained"
+                sx={{
+                  marginTop: "5%",
+                  backgroundColor: "#0a5c5c",
+                  textTransform: "none",
+                  borderRadius: 30,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontFamily: "NHaasGroteskTXPro",
+                    fontWeight: "regular",
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                  }}
+                >
+                  Sprawdź!
+                </Typography>
+              </Button>
+            </Box>
           </Grid>
           <Grid item xs={12} md={6}>
             <Avatar
