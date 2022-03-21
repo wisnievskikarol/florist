@@ -15,10 +15,14 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import Logo from "../../img/logo.svg";
 import { Link } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import "./Nav.scss";
 import Container from "@material-ui/core/Container";
 
 export default function Nav() {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [view, setView] = React.useState(
@@ -68,85 +72,85 @@ export default function Nav() {
       </FormGroup> */}
       <AppBar
         style={{ backgroundColor: "white" }}
-        position="static"
+        position="fixed"
         elevation={0}
         sx={{ paddingY: 2 }}
+        // position="fixed"
       >
-        <Container maxWidth="xl">
-          <Toolbar>
-            <Toolbar variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <Link to="/">
-                <img
-                  src={Logo}
-                  style={{ width: "110px" }}
-                  alt="logo"
-                  sx={{ mr: 2, marginLeft: "20%" }}
-                />
-              </Link>
-            </Toolbar>
-            {auth && (
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
-                </Menu>
-              </div>
-            )}
-
-            <Link to="/sklep" style={{ textDecoration: "none" }}>
-              <MenuItem style={{ textAlign: "center", color: "black" }}>
-                <Typography>Sklep</Typography>
-              </MenuItem>
+        <Toolbar>
+          <Toolbar variant="h6" component="div" sx={{ flexGrow: 2 }}>
+            <Link to="/">
+              <img
+                src={Logo}
+                style={{ width: "110px" }}
+                alt="logo"
+                // sx={{ mr: 2, marginLeft: "20%" }}
+              />
             </Link>
-            <Link to="/OdkryjRosline">
-              <MenuItem style={{ textAlign: "center", color: "black" }}>
-                <Typography>Odkryj roślinę</Typography>
-              </MenuItem>
-            </Link>
-            <Link to="/Logowanie">
-              <MenuItem style={{ textAlign: "center", color: "black" }}>
-                <Typography>Zaloguj się</Typography>
-              </MenuItem>
-            </Link>
-            <Link to="/Rejestracja">
-              <MenuItem
-                disableRipple={true}
-                style={{ textAlign: "center", color: "black" }}
+          </Toolbar>
+          {auth && (
+            <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
               >
-                <button className="navbar-register-button">
-                  Zarejestruj się
-                </button>
-              </MenuItem>
-            </Link>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          )}
 
-            {/* <Typography>Odkryj roślinę</Typography>
-              <Typography>Zaloguj się</Typography>
-              <Typography>Zarejestruj się</Typography> */}
-            {/* <IconButton
+          {matches ? (
+            <>
+              <Link to="/sklep" style={{ textDecoration: "none" }}>
+                <MenuItem style={{ textAlign: "center", color: "black" }}>
+                  <Typography>Sklep</Typography>
+                </MenuItem>
+              </Link>
+              <Link to="/OdkryjRosline">
+                <MenuItem style={{ textAlign: "center", color: "black" }}>
+                  <Typography>Odkryj roślinę</Typography>
+                </MenuItem>
+              </Link>
+              <Link to="/Logowanie">
+                <MenuItem style={{ textAlign: "center", color: "black" }}>
+                  <Typography>Zaloguj się</Typography>
+                </MenuItem>
+              </Link>
+              <Link to="/Rejestracja">
+                <MenuItem
+                  disableRipple={true}
+                  style={{ textAlign: "center", color: "black" }}
+                >
+                  <button className="navbar-register-button">
+                    Zarejestruj się
+                  </button>
+                </MenuItem>
+              </Link>
+            </>
+          ) : (
+            <IconButton
               style={{ color: "black" }}
               size="large"
               edge="start"
@@ -155,9 +159,53 @@ export default function Nav() {
               sx={{ mr: 2 }}
             >
               <MenuIcon />
-            </IconButton> */}
-          </Toolbar>
-        </Container>
+            </IconButton>
+          )}
+        </Toolbar>
+        {!matches && (
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
+              textAlign: "center",
+              color: "black",
+              padding: "20px",
+            }}
+          >
+            {/* <MenuItem
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                color: "black",
+              }}
+            > */}
+            <MenuItem>
+              <Link to="XD">
+                <Typography>Sklep</Typography>
+              </Link>
+            </MenuItem>
+            {/* </MenuItem> */}
+            <MenuItem sx={{ textAlign: "center", color: "black" }}>
+              <Typography>Odkryj roślinę</Typography>
+            </MenuItem>
+            <Link to="/Logowanie">
+              <MenuItem style={{ textAlign: "center", color: "black" }}>
+                <Typography>Zaloguj się</Typography>
+              </MenuItem>
+            </Link>
+            <MenuItem
+              disableRipple={true}
+              style={{ textAlign: "center", color: "black" }}
+            >
+              <button className="navbar-register-button">
+                Zarejestruj się
+              </button>
+            </MenuItem>
+          </Box>
+        )}
       </AppBar>
     </Box>
   );

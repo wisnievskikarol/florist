@@ -3,11 +3,11 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import Box from "@mui/material/Box";
 import useMediaQuery from "@mui/material/useMediaQuery";
 export const RecommendedProducts = (props) => {
-  const matches = useMediaQuery("(min-width:690px)");
+  const matches = useMediaQuery("(min-width:1040px)");
   let lorem =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo";
   return (
-    <div>
+    <Box sx={{ margin: "3rem 0" }}>
       <Box style={{ display: "flex" }}>
         <h2>Polecane</h2>
         <h2
@@ -23,9 +23,10 @@ export const RecommendedProducts = (props) => {
       <Box
         sx={{
           display: "flex",
+          // justifyContent: "center",
           justifyContent: matches ? "space-between" : "center",
           flexWrap: "wrap",
-          flexDirection: matches ? "row" : "column",
+          // flexDirection: matches ? "row" : "column",
         }}
       >
         <ProductCard name="Kaktus" description={lorem} />
@@ -34,7 +35,8 @@ export const RecommendedProducts = (props) => {
           description="Donk kortlejas nasd asiewrdkae fdaeskfaskdlfjaoie eslfkjnslikjfoiasejf alksdjnoliajh adijoiaewhj asdas "
         />
         <ProductCard name="Kaktus" description={lorem} />
+        <ProductCard name="Kaktus" description={lorem} />
       </Box>
-    </div>
+    </Box>
   );
 };

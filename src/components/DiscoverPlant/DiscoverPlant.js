@@ -1,25 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Box, Grid, Typography, Avatar, Button } from "@mui/material";
 import leafImage from "../../img/discoverPlant.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { useTheme } from "@mui/material/styles";
+import { maxWidth } from "@mui/system";
 
 const DiscoverPlant = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   console.log(matches);
   return (
-    <Box sx={{ width: "100vw" }}>
+    <Box sx={{ width: "100%", marginTop: "95px" }}>
       <Grid item xs={12}>
-        <Grid container direction="row" alignItems="center" spacing={3}>
+        <Grid container direction="row" alignItems="center">
           <Grid item xs={12} md={6} align="left">
-            <Box sx={{ marginLeft: "30%" }}>
+            <Box>
               <Typography
                 sx={{
                   fontFamily: "NHaasGroteskTXPro",
                   fontWeight: "bold",
                   fontSize: "50px",
+                  textAlign: "",
                 }}
               >
                 Odkryj roślinę
@@ -33,26 +36,31 @@ const DiscoverPlant = () => {
               >
                 dla siebie
               </Typography>
-              <Button
-                variant="contained"
-                sx={{
-                  marginTop: "5%",
-                  backgroundColor: "#0a5c5c",
-                  textTransform: "none",
-                  borderRadius: 30,
-                }}
-              >
-                <Typography
+              <Link to="OdkryjRosline">
+                <Button
+                  variant="contained"
                   sx={{
-                    fontFamily: "NHaasGroteskTXPro",
-                    fontWeight: "regular",
-                    paddingLeft: 1,
-                    paddingRight: 1,
+                    padding: "10px 20px",
+                    marginTop: "5%",
+                    marginBottom: "5%",
+                    backgroundColor: "#0a5c5c",
+                    boxShadow: "none",
+                    textTransform: "none",
+                    borderRadius: 30,
                   }}
                 >
-                  Sprawdź!
-                </Typography>
-              </Button>
+                  <Typography
+                    sx={{
+                      fontFamily: "NHaasGroteskTXPro",
+                      fontWeight: "regular",
+                      paddingLeft: 1,
+                      paddingRight: 1,
+                    }}
+                  >
+                    Sprawdź!
+                  </Typography>
+                </Button>
+              </Link>
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>

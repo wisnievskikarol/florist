@@ -6,8 +6,8 @@ import { RecommendedProducts } from "../../components/RecommendedProducts/Recomm
 function Home() {
   return (
     <Box>
-      <DiscoverPlant />
-      <Container>
+      <Container maxWidth="xl">
+        <DiscoverPlant />
         <RecommendedProducts />
       </Container>
     </Box>

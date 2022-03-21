@@ -11,7 +11,10 @@ export function ProductCard(props) {
   return (
     <Card
       sx={{
-        marginTop: "15px",
+        margin: "15px",
+        // marginLeft: "10px",
+        // marginRight: "10px",
+        // marginTop: "15px",
         borderRadius: "20px",
         boxShadow: "none",
         maxWidth: "300px",

@@ -29,11 +29,11 @@ const Footer = () => {
   return (
     <BottomNavigation
       sx={{
-        backgroundColor: "#0a5c5c",
+        backgroundColor: "#042e2e",
         height: "150px",
         padding: "30px 0",
         color: "white",
-        marginTop: "5rem",
+        marginTop: "10rem",
       }}
       showLabels
       value={value}
@@ -42,7 +42,7 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="xl">
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
           <Grid container spacing={3}>
             <Grid item xs={3}>
               <h3>Kontakt</h3>
