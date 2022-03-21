@@ -80,7 +80,7 @@ export default function Nav() {
                   src={Logo}
                   style={{ width: "110px" }}
                   alt="logo"
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 2, marginLeft: "20%" }}
                 />
               </Link>
             </Toolbar>

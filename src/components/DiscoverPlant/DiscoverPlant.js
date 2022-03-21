@@ -14,13 +14,12 @@ const DiscoverPlant = () => {
       <Grid item xs={12}>
         <Grid container direction="row" alignItems="center" spacing={3}>
           <Grid item xs={12} md={6} align="left">
-            <Box sx={{ marginLeft: "20%" }}>
+            <Box sx={{ marginLeft: "30%" }}>
               <Typography
                 sx={{
                   fontFamily: "NHaasGroteskTXPro",
                   fontWeight: "bold",
                   fontSize: "50px",
-                  textAlign: "",
                 }}
               >
                 Odkryj roślinę
