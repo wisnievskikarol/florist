@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Grid, Typography, Avatar, Button } from "@mui/material";
 import leafImage from "../../img/discoverPlant.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
 import { useTheme } from "@mui/material/styles";
 
 const DiscoverPlant = () => {

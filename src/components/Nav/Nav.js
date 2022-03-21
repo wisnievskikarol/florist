@@ -21,6 +21,25 @@ import Container from "@material-ui/core/Container";
 export default function Nav() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [view, setView] = React.useState(
+    window.innerWidth >= 1000 ? "desktop" : "mobile"
+  );
+
+  // React.useEffect(() => {
+  //   function handleResize() {
+  //     console.log(
+  //       "resized to: ",
+  //       window.innerWidth,
+  //       "x",
+  //       window.innerHeight,
+  //       " ",
+  //       view
+  //     );
+  //     window.innerWidth >= 1000 ? setView("desktop") : setView("mobile");
+  //   }
+
+  //   window.addEventListener("resize", handleResize);
+  // });
 
   const handleChange = (event) => {
     // setAuth(event.target.checked);
@@ -33,7 +52,6 @@ export default function Nav() {
   const handleClose = () => {
     // setAnchorEl(null);
   };
-
   return (
     <Box>
       {/* <FormGroup>
@@ -57,12 +75,14 @@ export default function Nav() {
         <Container maxWidth="xl">
           <Toolbar>
             <Toolbar variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <img
-                src={Logo}
-                style={{ width: "110px" }}
-                alt="logo"
-                sx={{ mr: 2 }}
-              />
+              <Link to="/">
+                <img
+                  src={Logo}
+                  style={{ width: "110px" }}
+                  alt="logo"
+                  sx={{ mr: 2 }}
+                />
+              </Link>
             </Toolbar>
             {auth && (
               <div>
@@ -97,7 +117,7 @@ export default function Nav() {
               </div>
             )}
 
-            <Link to="/" style={{ textDecoration: "none" }}>
+            <Link to="/sklep" style={{ textDecoration: "none" }}>
               <MenuItem style={{ textAlign: "center", color: "black" }}>
                 <Typography>Sklep</Typography>
               </MenuItem>
@@ -114,7 +134,7 @@ export default function Nav() {
             </Link>
             <Link to="/Rejestracja">
               <MenuItem
-                disableRipple="true"
+                disableRipple={true}
                 style={{ textAlign: "center", color: "black" }}
               >
                 <button className="navbar-register-button">
