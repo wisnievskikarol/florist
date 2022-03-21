@@ -10,16 +10,10 @@ const DiscoverPlant = () => {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   console.log(matches);
   return (
-    <Box
-      sx={{
-        position: matches ? null : "absolute",
-        right: 0,
-        top: 100,
-      }}
-    >
+    <Box sx={{ width: "100vw" }}>
       <Grid item xs={12}>
         <Grid container direction="row" alignItems="center" spacing={3}>
-          <Grid item xs={12} md={6} align={matches ? "center" : "left"}>
+          <Grid item xs={12} md={6} align="center">
             <Typography
               sx={{
                 fontFamily: "NHaasGroteskTXPro",
@@ -63,7 +57,7 @@ const DiscoverPlant = () => {
             <Avatar
               variant="square"
               src={leafImage}
-              sx={{ width: matches ? "100%" : "100%", height: "auto" }}
+              sx={{ width: "100%", height: "auto" }}
             />
           </Grid>
         </Grid>

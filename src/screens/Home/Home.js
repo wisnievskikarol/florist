@@ -6,7 +6,7 @@ import { RecommendedProducts } from "../../components/RecommendedProducts/Recomm
 function Home() {
   return (
     <Box>
-      {/* <DiscoverPlant /> */}
+      <DiscoverPlant />
       <Container>
         <RecommendedProducts />
       </Container>
