@@ -5,6 +5,8 @@ import Nav from "./components/Nav/Nav";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Footer from "./components/Footer/Footer";
+import LogIn from "./components/LogIn/LogIn";
+import Register from "./components/Register/Register";
 function App() {
   return (
     <div>
