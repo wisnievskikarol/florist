@@ -14,11 +14,12 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Logowanie" element={<LogIn />} />
+          <Route path="/Rejestracja" element={<Register />} />
         </Routes>
         <Footer />
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;

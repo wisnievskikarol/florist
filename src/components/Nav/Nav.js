@@ -19,12 +19,15 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import "./Nav.scss";
 import Container from "@material-ui/core/Container";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Nav() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const [auth, setAuth] = React.useState(true);
+  const [menuToggle, setMenuToggle] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const [view, setView] = React.useState(
     window.innerWidth >= 1000 ? "desktop" : "mobile"
   );
@@ -57,7 +60,7 @@ export default function Nav() {
     // setAnchorEl(null);
   };
   return (
-    <Box>
+    <Box sx={{ marginBottom: "96px" }}>
       {/* <FormGroup>
         <FormControlLabel
           control={
@@ -151,6 +154,9 @@ export default function Nav() {
             </>
           ) : (
             <IconButton
+              onClick={() => {
+                setMenuToggle(!menuToggle);
+              }}
               style={{ color: "black" }}
               size="large"
               edge="start"
@@ -162,7 +168,7 @@ export default function Nav() {
             </IconButton>
           )}
         </Toolbar>
-        {!matches && (
+        {!matches && menuToggle && (
           <Box
             sx={{
               width: "100%",
@@ -174,36 +180,58 @@ export default function Nav() {
               padding: "20px",
             }}
           >
-            {/* <MenuItem
-              style={{
+            <Link to="/sklep">
+              <MenuItem
+                sx={{
+                  marginY: "5px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography>Sklep</Typography>
+              </MenuItem>
+            </Link>
+            {/* </MenuItem> */}
+            <MenuItem
+              sx={{
                 display: "flex",
                 justifyContent: "center",
                 textAlign: "center",
                 color: "black",
+                marginY: "5px",
               }}
-            > */}
-            <MenuItem>
-              <Link to="XD">
-                <Typography>Sklep</Typography>
-              </Link>
-            </MenuItem>
-            {/* </MenuItem> */}
-            <MenuItem sx={{ textAlign: "center", color: "black" }}>
+            >
               <Typography>Odkryj roślinę</Typography>
             </MenuItem>
-            <Link to="/Logowanie">
-              <MenuItem style={{ textAlign: "center", color: "black" }}>
+            <Link to="/OdkryjRosline">
+              <MenuItem
+                sx={{
+                  marginY: "5px",
+                  display: "flex",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  color: "black",
+                }}
+              >
                 <Typography>Zaloguj się</Typography>
               </MenuItem>
             </Link>
-            <MenuItem
-              disableRipple={true}
-              style={{ textAlign: "center", color: "black" }}
-            >
-              <button className="navbar-register-button">
-                Zarejestruj się
-              </button>
-            </MenuItem>
+            <Link to="/Rejestracja">
+              <MenuItem
+                disableRipple={true}
+                sx={{
+                  marginY: "5px",
+                  textAlign: "center",
+                  color: "black",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <button className="navbar-register-button">
+                  Zarejestruj się
+                </button>
+              </MenuItem>
+            </Link>
           </Box>
         )}
       </AppBar>
