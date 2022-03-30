@@ -19,6 +19,7 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import { lineHeight } from "@mui/system";
 const Footer = () => {
   const [value, setValue] = React.useState("recents");
 
@@ -33,7 +34,7 @@ const Footer = () => {
         height: "150px",
         padding: "30px 0",
         color: "white",
-        marginTop: "10rem",
+        // marginTop: "10rem",
       }}
       showLabels
       value={value}
@@ -44,7 +45,7 @@ const Footer = () => {
       <Container maxWidth="xl">
         <Box>
           <Grid container spacing={3}>
-            <Grid item xs={3}>
+            <Grid item xs={3} sx={{ lineHeight: "1.8rem" }}>
               <h3>Kontakt</h3>
               <Link
                 href="https://www.facebook.com/"

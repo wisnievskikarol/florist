@@ -7,7 +7,7 @@ export const RecommendedProducts = (props) => {
   let lorem =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo";
   return (
-    <Box sx={{ margin: "3rem 0" }}>
+    <Box sx={{ marginY: "5rem" }}>
       <Box style={{ display: "flex" }}>
         <h2>Polecane</h2>
         <h2
