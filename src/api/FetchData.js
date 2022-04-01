@@ -1,22 +1,25 @@
-export const fetchDataAutho = async (url, authToken) => {
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: "Bearer" + authToken,
-    },
-  });
-  if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
-    throw new Error(message);
-  }
-  return await response.json();
-};
+import axios from "axios";
+import tokenUtils from "./tokenUtils";
 
-export const fetchDataNoAutho = async (url) => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    const message = `An error has occured: ${response.status}`;
-    throw new Error(message);
-  }
-  return await response.json();
+const API_URL = "http://localhost:3001";
+
+const getHeaders = () => ({
+  headers: {
+    authorization: !!tokenUtils.getToken() ? tokenUtils.getToken() : "",
+  },
+});
+
+class Request {
+  delete = (url) => axios.delete(`${API_URL}${url}`, getHeaders());
+  get = (url) => axios.get(`${API_URL}${url}`, getHeaders());
+  put = (url, body) => axios.put(`${API_URL}${url}`, body, getHeaders());
+  post = (url, body) => axios.post(`${API_URL}${url}`, body, getHeaders());
+}
+
+const requests = new Request();
+
+export const auth = {
+  login: (payload) => requests.post("/login", payload),
+  register: (payload) => requests.post("/register", payload),
+  whoami: () => requests.get("/whoami"),
 };
