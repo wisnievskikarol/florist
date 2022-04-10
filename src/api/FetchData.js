@@ -1,13 +1,15 @@
 import axios from "axios";
-import tokenUtils from "./tokenUtils";
+import { store } from "../index";
 
 const API_URL = "http://localhost:3001";
 
-const getHeaders = () => ({
-  headers: {
-    authorization: !!tokenUtils.getToken() ? tokenUtils.getToken() : "",
-  },
-});
+const getHeaders = () => {
+  return {
+    headers: {
+      authorization: store.getState().user.token,
+    },
+  };
+};
 
 class Request {
   delete = (url) => axios.delete(`${API_URL}${url}`, getHeaders());
