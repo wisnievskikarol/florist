@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import FormControl from "@mui/material/FormControl";
@@ -15,6 +15,8 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Img from "../../img/discoverPlant.png";
 import Or from "../../img/or.svg";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 import {
   alpha,
   AppBar,
@@ -24,6 +26,8 @@ import {
   makeStyles,
   Toolbar,
 } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, checkAuth } from "../../stores/userInfoStore";
 
 const useStyles = makeStyles((theme) => ({
   left: {
@@ -85,6 +89,17 @@ const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState(false);
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo.isLoggedIn) {
+      navigate("/");
+    }
+  }, [userInfo.isLoggedIn]);
 
   const [open, setOpen] = useState(false);
   const classes = useStyles({ open });
@@ -124,7 +139,11 @@ const LogIn = () => {
             <hr></hr> */}
           </Box>
 
-          <TextField label={"Adres email"} id="margin-none" />
+          <TextField
+            label={"Adres email"}
+            id="margin-none"
+            onChange={(e) => setLogin(e.target.value)}
+          />
           {/* <TextField label={"Adres email"} id="margin-none" /> */}
           <FormControl
             className={classes.elements}
@@ -136,15 +155,13 @@ const LogIn = () => {
             </InputLabel>
             <OutlinedInput
               id="outlined-adornment-password"
+              onChange={(e) => setPassword(e.target.value)}
               type={showPassword ? "text" : "password"}
-              // value={values.password}
-              // onChange={handleChange('password')}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={() => setShowPassword(!showPassword)}
-                    // onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
                     {!showPassword ? <VisibilityOff /> : <Visibility />}
@@ -166,8 +183,13 @@ const LogIn = () => {
               },
             }}
             variant="outlined"
+            onClick={() => dispatch(loginUser(login, password))}
           >
-            Zaloguj się
+            {!userInfo.loginPending ? (
+              <Typography>Zaloguj się</Typography>
+            ) : (
+              <CircularProgress sx={{ color: "white" }} />
+            )}
           </Button>
 
           {/* <img src={GoogleIcon}></img> */}

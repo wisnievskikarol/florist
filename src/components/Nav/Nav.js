@@ -6,27 +6,24 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import Logo from "../../img/logo.svg";
 import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useSelector, useDispatch } from "react-redux";
+import { logout, checkAuth } from "../../stores/userInfoStore";
+import LogoutIcon from "@mui/icons-material/Logout";
 import "./Nav.scss";
-import Container from "@material-ui/core/Container";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Nav() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
-  const [auth, setAuth] = React.useState(true);
   const [menuToggle, setMenuToggle] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const userInfo = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const [view, setView] = React.useState(
     window.innerWidth >= 1000 ? "desktop" : "mobile"
@@ -91,7 +88,7 @@ export default function Nav() {
               />
             </Link>
           </Toolbar>
-          {auth && (
+          {userInfo.isLoggedIn && (
             <div>
               <IconButton
                 size="large"
@@ -136,21 +133,29 @@ export default function Nav() {
                   <Typography>Odkryj roślinę</Typography>
                 </MenuItem>
               </Link>
-              <Link to="/Logowanie">
-                <MenuItem style={{ textAlign: "center", color: "black" }}>
-                  <Typography>Zaloguj się</Typography>
-                </MenuItem>
-              </Link>
-              <Link to="/Rejestracja">
-                <MenuItem
-                  disableRipple={true}
-                  style={{ textAlign: "center", color: "black" }}
-                >
-                  <button className="navbar-register-button">
-                    Zarejestruj się
-                  </button>
-                </MenuItem>
-              </Link>
+              {userInfo.isLoggedIn ? (
+                <IconButton onClick={() => dispatch(logout())}>
+                  <LogoutIcon sx={{ color: "red" }} />
+                </IconButton>
+              ) : (
+                <Link to="/Logowanie">
+                  <MenuItem style={{ textAlign: "center", color: "black" }}>
+                    <Typography>Zaloguj się</Typography>
+                  </MenuItem>
+                </Link>
+              )}
+              {userInfo.isLoggedIn ? null : (
+                <Link to="/Rejestracja">
+                  <MenuItem
+                    disableRipple={true}
+                    style={{ textAlign: "center", color: "black" }}
+                  >
+                    <button className="navbar-register-button">
+                      Zarejestruj się
+                    </button>
+                  </MenuItem>
+                </Link>
+              )}
             </>
           ) : (
             <IconButton
@@ -203,19 +208,20 @@ export default function Nav() {
             >
               <Typography>Odkryj roślinę</Typography>
             </MenuItem>
-            <Link to="/OdkryjRosline">
-              <MenuItem
-                sx={{
-                  marginY: "5px",
-                  display: "flex",
-                  justifyContent: "center",
-                  textAlign: "center",
-                  color: "black",
-                }}
-              >
-                <Typography>Zaloguj się</Typography>
-              </MenuItem>
-            </Link>
+            <MenuItem
+              sx={{
+                marginY: "5px",
+                display: "flex",
+                justifyContent: "center",
+                textAlign: "center",
+                color: "black",
+              }}
+              onClick={() => (userInfo.isLoggedIn ? dispatch(logout()) : null)}
+            >
+              <Typography>
+                {userInfo.isLoggedIn ? "Wyloguj się" : "Zaloguj się"}
+              </Typography>
+            </MenuItem>
             <Link to="/Rejestracja">
               <MenuItem
                 disableRipple={true}
