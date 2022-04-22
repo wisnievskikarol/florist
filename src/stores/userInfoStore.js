@@ -58,36 +58,26 @@ export const checkAuth = () => (dispatch) => {
     });
 };
 
-export const loginUser = (login, password) => (dispatch) => {
+export const loginUser = (username, password) => (dispatch) => {
   dispatch(USER_LOGIN_PENDING());
-  // +++ JUST IMITATION +++
-  setTimeout(() => {
-    const states = {
-      email: "adaglo524@gmail.com",
-      login: login,
-      roles: ["USER"],
-      token: "w9k19w1kk1w19kw9kw",
-      refreshToken: "e2ko12ekd290ed2k01ed",
-    };
-    dispatch(USER_LOGIN_SUCCESS(states));
-  }, 2000);
-
-  // Jak api będzie śmigać to się to odkomentuje
-  // auth
-  //   .login({ login, password })
-  //   .then((res) => {
-  //     const states = {
-  //       email: res.data.userInfo.email,
-  //       login: res.data.userInfo.login,
-  //       roles: res.data.userInfo.roles,
-  //       token: res.data.tokens.accessToken,
-  //       refreshToken: res.data.tokens.refreshToken,
-  //     };
-  //     dispatch(USER_LOGIN_SUCCESS(states));
-  //   })
-  //   .catch(() => {
-  //     dispatch(USER_LOGIN_ERROR({ error: LOGIN_ERROR_MESSAGE }));
-  //   });
+  console.log({ username, password });
+  auth
+    .login({ username, password })
+    .then((res) => {
+      console.log(res);
+      // const states = {
+      //   email: res.data.userInfo.email,
+      //   login: res.data.userInfo.login,
+      //   roles: res.data.userInfo.roles,
+      //   token: res.data.tokens.accessToken,
+      //   refreshToken: res.data.tokens.refreshToken,
+      // };
+      // dispatch(USER_LOGIN_SUCCESS(states));
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(USER_LOGIN_ERROR({ error: LOGIN_ERROR_MESSAGE }));
+    });
 };
 
 export const logout = () => (dispatch) => {

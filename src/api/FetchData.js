@@ -1,7 +1,7 @@
 import axios from "axios";
 import { store } from "../index";
 
-const API_URL = "http://localhost:3001";
+const API_URL = "https://plants-for-you.herokuapp.com";
 
 const getHeaders = () => {
   return {

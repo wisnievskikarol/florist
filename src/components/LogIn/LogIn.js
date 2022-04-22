@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
@@ -17,80 +16,16 @@ import Img from "../../img/discoverPlant.png";
 import Or from "../../img/or.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
-import {
-  alpha,
-  AppBar,
-  Avatar,
-  Badge,
-  InputBase,
-  makeStyles,
-  Toolbar,
-} from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, checkAuth } from "../../stores/userInfoStore";
-
-const useStyles = makeStyles((theme) => ({
-  left: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    paddingTop: "20px",
-    paddingBottom: "20px",
-    alignItems: "center",
-    justifyContent: "center",
-    // backgroundColor: "red",
-    // [theme.breakpoints.up("sm")]: {},
-  },
-  button: {
-    color: "#0a5c5c",
-    borderColor: "#0a5c5c",
-    borderRadius: "30px",
-    "&:hover": {
-      background: "#0a5c5c",
-      color: "white",
-    },
-  },
-
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    // height: "100vh",
-    height: "80vh",
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
-    },
-  },
-  right: {
-    backgroundImage: `url(${Img})`,
-    height: "100%",
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
-    overflow: "hidden",
-    backgroundPosition: "center",
-    width: "100%",
-    justifyContent: "center",
-    // [theme.breakpoints.down("lg")]: {
-    //   color: "red",
-    // },
-  },
-  leftInner: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    maxWidth: "400px",
-  },
-  elements: {
-    width: "100%",
-    marginTop: "12px",
-  },
-}));
+import { GoogleLogin } from "react-google-login";
 
 const LogIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState(false);
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -101,19 +36,56 @@ const LogIn = () => {
     }
   }, [userInfo.isLoggedIn]);
 
-  const [open, setOpen] = useState(false);
-  const classes = useStyles({ open });
+  const handleFailure = (result) => {
+    console.log(result);
+    alert(result);
+  };
+
+  const handleLogin = async (googleData) => {
+    console.log(googleData);
+  };
+
   return (
-    <div className={classes.container}>
-      <Box className={classes.left}>
-        <Box className={classes.leftInner}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        height: "80vh",
+        [theme.breakpoints.down("md")]: {
+          flexDirection: "column",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          paddingTop: "20px",
+          paddingBottom: "20px",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            maxWidth: "400px",
+          }}
+        >
           <Box sx={{ lineHeight: "3.53em" }}>
             <Typography
-              sx={{ fontWeight: "normal", marginBottom: "10px" }}
+              sx={{
+                fontWeight: "normal",
+                marginBottom: "10px",
+                width: "100%",
+                marginTop: "12px",
+              }}
               variant="h4"
-              className={classes.elements}
             >
-              Witaj ponownie
+              Witaj
             </Typography>
             <Typography
               sx={{ fontWeight: "normal", color: "gray", marginBottom: "10px" }}
@@ -121,22 +93,38 @@ const LogIn = () => {
               Podaj swoje dane logowania
             </Typography>
           </Box>
-
-          <Button
-            variant="outlined"
-            sx={{ marginTop: "10px" }}
-            className={classes.button}
-          >
-            <GoogleIcon sx={{ marginRight: "10px" }} /> Log in with Google
-          </Button>
+          <GoogleLogin
+            clientId="676799456601-paba4ic78hlgr9i35gce7321lp36336g.apps.googleusercontent.com"
+            // render={(renderProps) => (
+            //   <Button
+            //     variant="outlined"
+            //     sx={{
+            //       marginTop: "10px",
+            //       color: "#0a5c5c",
+            //       borderColor: "#0a5c5c",
+            //       borderRadius: "30px",
+            //       "&:hover": {
+            //         background: "#0a5c5c",
+            //         color: "white",
+            //       },
+            //     }}
+            //     onClick={renderProps.onClick}
+            //   >
+            //     <GoogleIcon sx={{ marginRight: "10px" }} /> Log in with Google
+            //   </Button>
+            // )}
+            buttonText="Login"
+            onSuccess={(res) => console.log(res)}
+            onFailure={handleFailure}
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={true}
+            // scope="profile"
+          />
 
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box sx={{ width: "140px", margin: "20px 0  20px 0" }}>
-              <img src={Or}></img>
+              <img src={Or} alt="Brak" />
             </Box>
-            {/* <hr sx={{ width: "100px", height: "3px" }}></hr>
-            <Typography variant="p">Albo</Typography>
-            <hr></hr> */}
           </Box>
 
           <TextField
@@ -144,10 +132,8 @@ const LogIn = () => {
             id="margin-none"
             onChange={(e) => setLogin(e.target.value)}
           />
-          {/* <TextField label={"Adres email"} id="margin-none" /> */}
           <FormControl
-            className={classes.elements}
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", marginTop: "20px" }}
             variant="outlined"
           >
             <InputLabel htmlFor="outlined-adornment-password">
@@ -191,17 +177,21 @@ const LogIn = () => {
               <CircularProgress sx={{ color: "white" }} />
             )}
           </Button>
-
-          {/* <img src={GoogleIcon}></img> */}
-          {/* <TextField label={"Imię"} id="margin-none" /> */}
         </Box>
       </Box>
-      <Box className={classes.right}></Box>
-    </div>
+      <Box
+        sx={{
+          backgroundImage: `url(${Img})`,
+          height: "100%",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          overflow: "hidden",
+          backgroundPosition: "center",
+          width: "100%",
+          justifyContent: "center",
+        }}
+      />
+    </Box>
   );
 };
 export default LogIn;
-
-//Bol gardla , oslabienie , katar , delikatny suchy kaszel
-
-//367 43 296 // apo napro 2 x jedna tabletka // gri,bax plukanie  livotron 3 x dzienie 10 mil //
