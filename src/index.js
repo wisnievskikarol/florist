@@ -6,7 +6,6 @@ import { rootStore } from "./stores/rootStore";
 import { Provider } from "react-redux";
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -14,21 +13,12 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { PersistGate } from "redux-persist/integration/react";
 import logger from "redux-logger";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootStore);
-
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootStore,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

@@ -28,6 +28,7 @@ const LogIn = () => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user);
+  console.log(userInfo.error);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +38,7 @@ const LogIn = () => {
   }, [userInfo.isLoggedIn]);
 
   const handleFailure = (result) => {
-    console.log(result);
-    alert(result);
+    setError("Logowanie nie powiodło się");
   };
 
   const handleLogin = async (googleData) => {
@@ -95,38 +95,35 @@ const LogIn = () => {
           </Box>
           <GoogleLogin
             clientId="676799456601-paba4ic78hlgr9i35gce7321lp36336g.apps.googleusercontent.com"
-            // render={(renderProps) => (
-            //   <Button
-            //     variant="outlined"
-            //     sx={{
-            //       marginTop: "10px",
-            //       color: "#0a5c5c",
-            //       borderColor: "#0a5c5c",
-            //       borderRadius: "30px",
-            //       "&:hover": {
-            //         background: "#0a5c5c",
-            //         color: "white",
-            //       },
-            //     }}
-            //     onClick={renderProps.onClick}
-            //   >
-            //     <GoogleIcon sx={{ marginRight: "10px" }} /> Log in with Google
-            //   </Button>
-            // )}
+            render={(renderProps) => (
+              <Button
+                variant="outlined"
+                sx={{
+                  marginTop: "10px",
+                  color: "#0a5c5c",
+                  borderColor: "#0a5c5c",
+                  borderRadius: "30px",
+                  "&:hover": {
+                    background: "#0a5c5c",
+                    color: "white",
+                  },
+                }}
+                onClick={renderProps.onClick}
+              >
+                <GoogleIcon sx={{ marginRight: "10px" }} /> Log in with Google
+              </Button>
+            )}
             buttonText="Login"
-            onSuccess={(res) => console.log(res)}
+            onSuccess={handleLogin}
             onFailure={handleFailure}
             cookiePolicy={"single_host_origin"}
             isSignedIn={true}
-            // scope="profile"
           />
-
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box sx={{ width: "140px", margin: "20px 0  20px 0" }}>
               <img src={Or} alt="Brak" />
             </Box>
           </Box>
-
           <TextField
             label={"Adres email"}
             id="margin-none"
@@ -157,6 +154,19 @@ const LogIn = () => {
               label="Password"
             />
           </FormControl>
+          {userInfo.error ? (
+            <Typography
+              sx={{
+                fontWeight: "regular",
+                color: "red",
+                marginBottom: "10px",
+                marginTop: "10px",
+                textAlign: "center",
+              }}
+            >
+              {userInfo.error}
+            </Typography>
+          ) : null}
           <Button
             sx={{
               margin: "25px 0 25px 0",

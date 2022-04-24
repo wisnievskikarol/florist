@@ -18,6 +18,7 @@ export const userSlice = createSlice({
     USER_LOGIN_PENDING: (state) => {
       return {
         ...state,
+        error: null,
         loginPending: true,
       };
     },
@@ -26,6 +27,7 @@ export const userSlice = createSlice({
         ...state,
         loginPending: false,
         isLoggedIn: true,
+        error: null,
         ...action.payload,
       };
     },
