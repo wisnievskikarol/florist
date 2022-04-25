@@ -11,20 +11,21 @@ export function ProductCard(props) {
   return (
     <Card
       sx={{
-        margin: "15px",
+        margin: props.size === "sm" ? "5px" : "15px",
         // marginLeft: "10px",
         // marginRight: "10px",
         // marginTop: "15px",
         borderRadius: "20px",
         boxShadow: "none",
-        maxWidth: "300px",
+        maxWidth: props.size === "sm" ? "240px" : "300px",
+        minWidth: "240px",
         backgroundColor: "#f3f3f3",
       }}
     >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="200"
+          height={props.size === "sm" ? "140px" : "200px"}
           image={Photo}
           alt="green iguana"
         />
@@ -40,10 +41,12 @@ export function ProductCard(props) {
       <CardActions
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
+          justifyContent: "space-between",
+
+          alignItems: "center",
         }}
       >
+          <Typography sx = {{marginLeft : "10px" , color : "black"}} variant="h5" color="text.secondary">{props.price} zł</Typography>
         <Button
           size="small"
           sx={{

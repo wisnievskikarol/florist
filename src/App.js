@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import Footer from "./components/Footer/Footer";
 import LogIn from "./components/LogIn/LogIn";
 import Register from "./components/Register/Register";
+import Shop from './components/Shop/Shop'
 function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/Logowanie" element={<LogIn />} />
           <Route path="/Rejestracja" element={<Register />} />
+          <Route path="/sklep" element={<Shop />} />
         </Routes>
         <Footer />
       </BrowserRouter>
