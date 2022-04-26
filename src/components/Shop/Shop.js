@@ -46,7 +46,7 @@ const Shop = () => {
                         <p>Cena</p>
                         <p>od {value1[0]} do  {value1[1]} zł</p>
                         <Slider
-                            sx = {{color : "#7a7a7a" , maxWidth : "150px"}}
+                            sx = {{marginLeft : "10px", color : "#7a7a7a" , maxWidth : "150px"}}
                             getAriaLabel={() => 'Minimum distance'}
                             value={value1}
                             max={150}
@@ -67,7 +67,6 @@ const Shop = () => {
                             <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
                             <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
                             <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-
                         </Box>
                     </Grid>
                 </Grid>

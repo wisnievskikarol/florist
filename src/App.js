@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import LogIn from "./components/LogIn/LogIn";
 import Register from "./components/Register/Register";
 import Shop from './components/Shop/Shop'
+import ProductView from './components/ProductView/ProductView';
 function App() {
   return (
     <div>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Logowanie" element={<LogIn />} />
           <Route path="/Rejestracja" element={<Register />} />
           <Route path="/sklep" element={<Shop />} />
+          <Route path="/sklep/:id" element={<ProductView />} />
         </Routes>
         <Footer />
       </BrowserRouter>
