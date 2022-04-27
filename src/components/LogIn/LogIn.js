@@ -17,7 +17,7 @@ import Or from "../../img/or.svg";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser, checkAuth } from "../../stores/userInfoStore";
+import { loginUser } from "../../stores/userInfoStore";
 import { GoogleLogin } from "react-google-login";
 
 const LogIn = () => {
@@ -28,7 +28,6 @@ const LogIn = () => {
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user);
-  console.log(userInfo.error);
   const navigate = useNavigate();
 
   useEffect(() => {

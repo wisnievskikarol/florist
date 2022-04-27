@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, checkAuth } from "../../stores/userInfoStore";
+import { logout } from "../../stores/userInfoStore";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "./Nav.scss";
 

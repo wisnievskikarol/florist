@@ -5,7 +5,6 @@ import leafImage from "../../img/discoverPlant.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { useTheme } from "@mui/material/styles";
-import { maxWidth } from "@mui/system";
 
 const DiscoverPlant = () => {
   const theme = useTheme();
