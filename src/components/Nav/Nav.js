@@ -17,6 +17,13 @@ import { logout } from "../../stores/userInfoStore";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Popover from "@mui/material/Popover";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Divider from "@mui/material/Divider";
+import YardIcon from "@mui/icons-material/Yard";
 import "./Nav.scss";
 
 export default function Nav() {
@@ -25,7 +32,10 @@ export default function Nav() {
   const [menuToggle, setMenuToggle] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const userInfo = useSelector((state) => state.user);
+  const basketInfo = useSelector((state) => state.basket.products);
   const dispatch = useDispatch();
+
+  console.log("basket info", basketInfo);
 
   const [view, setView] = React.useState(
     window.innerWidth >= 1000 ? "desktop" : "mobile"
@@ -147,11 +157,13 @@ export default function Nav() {
                   <Typography>Odkryj roślinę</Typography>
                 </MenuItem>
               </Link>
-              <IconButton>
-                <ShoppingBasketIcon sx={{ color: "green" }} />
+              <IconButton
+                onMouseEnter={handlePopoverOpen}
+                onMouseLeave={handlePopoverClose}
+              >
+                <ShoppingBasketIcon sx={{ color: "#0a5c5c" }} />
               </IconButton>
-              {/* <Popover
-                id="mouse-over-popover"
+              <Popover
                 sx={{
                   pointerEvents: "none",
                 }}
@@ -168,8 +180,42 @@ export default function Nav() {
                 onClose={handlePopoverClose}
                 disableRestoreFocus
               >
-                <Typography sx={{ p: 1 }}>I use Popover.</Typography>
-              </Popover> */}
+                <Box sx={{ padding: 3 }}>
+                  {basketInfo.length === 0 ? (
+                    <Typography sx={{ fontWeight: "bold" }}>
+                      Koszyk pusty
+                    </Typography>
+                  ) : (
+                    <List
+                      sx={{
+                        width: "100%",
+                        bgcolor: "background.paper",
+                      }}
+                    >
+                      <Typography
+                        sx={{ fontWeight: "bold", textAlign: "center" }}
+                      >
+                        Mój koszyk
+                      </Typography>
+                      <Divider />
+                      {basketInfo.map((product) => (
+                        <ListItem>
+                          <ListItemAvatar>
+                            <Avatar sx={{ backgroundColor: "#0a5c5c" }}>
+                              <YardIcon />
+                            </Avatar>
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={product.name}
+                            secondary={`${product.price} zł`}
+                            primaryTypographyProps={{ fontWeight: "bold" }}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
+                </Box>
+              </Popover>
               {userInfo.isLoggedIn ? (
                 <IconButton onClick={() => dispatch(logout())}>
                   <LogoutIcon sx={{ color: "red" }} />

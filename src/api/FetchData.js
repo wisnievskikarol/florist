@@ -30,5 +30,5 @@ export const auth = {
     }),
 };
 export const noAuth = {
-  plants: () => requests.get("/api/v1/plants/no-auth"),
+  plants: () => requests.get("/api/v1/plants"),
 };
