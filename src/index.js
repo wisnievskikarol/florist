@@ -27,6 +27,8 @@ export const store = configureStore({
     }).concat(logger),
 });
 
+
+
 let persistor = persistStore(store);
 
 ReactDOM.render(

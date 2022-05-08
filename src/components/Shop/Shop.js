@@ -1,13 +1,12 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Photo from "../../img/photo.jpg";
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import {ProductCard} from '../ProductCard/ProductCard.js';
 import Slider from '@mui/material/Slider';
+import {useSelector} from 'react-redux'
 
+import {Link} from "react-router-dom";
 
 function valuetext(value) {
     return `${value}°C`;
@@ -15,14 +14,20 @@ function valuetext(value) {
 
 const minDistance = 0;
 const Shop = () => {
-    const [value1, setValue1] = React.useState([0, 50]);
-    // const Item = styled(Paper)(({ theme }) => ({
-    //     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    //     ...theme.typography.body2,
-    //     padding: theme.spacing(1),
-    //     textAlign: 'center',
-    //     color: theme.palette.text.secondary,
-    // }));
+    const items = useSelector((state) => state.plants.store)
+    const [value1, setValue1] = React.useState([0, 70]);
+    const [plants, setPlants] = React.useState(items);
+
+    useEffect(() => {
+        if (items) {
+            const temp = items.filter((el) => {
+                return el.price >= value1[0] && el.price <= value1[1]
+            })
+            setPlants(temp)
+        }
+
+    }, [value1])
+
     const handleChange1 = (event, newValue, activeThumb) => {
         if (!Array.isArray(newValue)) {
             return;
@@ -36,17 +41,16 @@ const Shop = () => {
     };
 
     return (
-        <Container maxWidth="xl">
-
-            <Box sx={{ flexGrow: 1 }}>
+        <Container sx={{minHeight: "100%"}} maxWidth="xl">
+            <Box sx={{flexGrow: 1, minHeight: "72vh"}}>
                 <Grid container spacing={2}>
                     <Grid item xs={3}>
                         {/*<Item>xs=8</Item>*/}
                         <h2>Sortuj</h2>
                         <p>Cena</p>
-                        <p>od {value1[0]} do  {value1[1]} zł</p>
+                        <p>od {value1[0]} do {value1[1]} zł</p>
                         <Slider
-                            sx = {{marginLeft : "10px", color : "#7a7a7a" , maxWidth : "150px"}}
+                            sx={{marginLeft: "10px", color: "#7a7a7a", maxWidth: "150px"}}
                             getAriaLabel={() => 'Minimum distance'}
                             value={value1}
                             max={150}
@@ -58,15 +62,11 @@ const Shop = () => {
                     </Grid>
                     <Grid item xs={9}>
                         <h2>Produkty</h2>
-                        <Box sx = {{display : "flex" , flexWrap : "wrap"  , gap : "50px" }} spacing={5}>
-
-                        <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-                        <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-                            <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-                            <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-                            <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-                            <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
-                            <ProductCard name="Kaktus" description={"lorem ipsum"} size = "sm" price = {123} />
+                        <Box sx={{display: "flex", flexWrap: "wrap", gap: "50px"}} spacing={5}>
+                            {plants.map((el, id) => {
+                                return <Link to={`/sklep/${id}`}> <ProductCard id={id} name={el.name} size="sm"
+                                                                               price={el.price}/></Link>
+                            })}
                         </Box>
                     </Grid>
                 </Grid>

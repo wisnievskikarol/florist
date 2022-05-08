@@ -29,13 +29,10 @@ export const RecommendedProducts = (props) => {
           // flexDirection: matches ? "row" : "column",
         }}
       >
-        <ProductCard name="Kaktus" description={lorem} />
-        <ProductCard
-          name="Kaktus"
-          description="Donk kortlejas nasd asiewrdkae fdaeskfaskdlfjaoie eslfkjnslikjfoiasejf alksdjnoliajh adijoiaewhj asdas "
-        />
-        <ProductCard name="Kaktus" description={lorem} />
-        <ProductCard name="Kaktus" description={lorem} />
+        <ProductCard name="Kaktus zielony" price = "12.31" />
+          <ProductCard name="Kaktus zielony" price = "12.31" />
+          <ProductCard name="Kaktus zielony" price = "12.31" />
+          <ProductCard name="Kaktus zielony" price = "12.31" />
       </Box>
     </Box>
   );

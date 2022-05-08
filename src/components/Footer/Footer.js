@@ -14,10 +14,15 @@ const Footer = () => {
   return (
     <BottomNavigation
       sx={{
+
         backgroundColor: "#042e2e",
         height: "150px",
         padding: "30px 0",
         color: "white",
+        flexShrink: 0
+        // marginTop : "40px"
+
+
         // marginTop: "10rem",
       }}
       showLabels

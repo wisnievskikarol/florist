@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Box, Grid, Typography, Avatar, Button } from "@mui/material";
 import leafImage from "../../img/discoverPlant.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import ProductCard from "../ProductCard/ProductCard"
 import { useTheme } from "@mui/material/styles";
 
 const DiscoverPlant = () => {
@@ -11,7 +11,7 @@ const DiscoverPlant = () => {
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   console.log(matches);
   return (
-    <Box sx={{ width: "100%", marginTop: "95px" }}>
+    <Box sx={{ width: "100%" }}>
       <Grid item xs={12}>
         <Grid container direction="row" alignItems="center">
           <Grid item xs={12} md={6} align="left">

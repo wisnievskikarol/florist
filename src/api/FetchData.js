@@ -1,27 +1,30 @@
 import axios from "axios";
-import { store } from "../index";
+import {store} from "../index";
 
 const API_URL = "https://plants-for-you.herokuapp.com";
 
 const getHeaders = () => {
-  return {
-    headers: {
-      authorization: `Bearer ${store.getState().user.token}`,
-    },
-  };
+    return {
+        headers: {
+            authorization: `Bearer ${store.getState().user.token}`,
+        },
+    };
 };
 
 class Request {
-  delete = (url) => axios.delete(`${API_URL}${url}`, getHeaders());
-  get = (url) => axios.get(`${API_URL}${url}`, getHeaders());
-  put = (url, body) => axios.put(`${API_URL}${url}`, body, getHeaders());
-  post = (url, body) => axios.post(`${API_URL}${url}`, body, getHeaders());
+    delete = (url) => axios.delete(`${API_URL}${url}`, getHeaders());
+    get = (url) => axios.get(`${API_URL}${url}`, getHeaders());
+    put = (url, body) => axios.put(`${API_URL}${url}`, body, getHeaders());
+    post = (url, body) => axios.post(`${API_URL}${url}`, body, getHeaders());
 }
 
 const requests = new Request();
 
 export const auth = {
-  login: (payload) => requests.post("/login", payload),
-  register: (payload) => requests.post("/v1/registration", payload),
-  whoami: () => requests.get("/whoami"),
+    login: (payload) => requests.post("/login", payload),
+    register: (payload) => requests.post("/v1/registration", payload),
+    whoami: () => requests.get("/whoami"),
+};
+export const noAuth = {
+    plants: () => requests.get("/api/v1/plants/no-auth"),
 };

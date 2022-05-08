@@ -1,4 +1,5 @@
 import userReducer from "./userInfoStore";
+import plantsReducer from "./plantsStore"
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -12,4 +13,5 @@ const persistConfig = {
 
 export const rootStore = combineReducers({
   user: persistReducer(persistConfig, userReducer),
+  plants : plantsReducer
 });
