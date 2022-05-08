@@ -15,6 +15,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../stores/userInfoStore";
 import LogoutIcon from "@mui/icons-material/Logout";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import Popover from "@mui/material/Popover";
 import "./Nav.scss";
 
 export default function Nav() {
@@ -28,6 +30,18 @@ export default function Nav() {
   const [view, setView] = React.useState(
     window.innerWidth >= 1000 ? "desktop" : "mobile"
   );
+
+  const [basketAnchorEl, setBasketAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setBasketAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setBasketAnchorEl(null);
+  };
+
+  const open = Boolean(basketAnchorEl);
 
   // React.useEffect(() => {
   //   function handleResize() {
@@ -133,6 +147,29 @@ export default function Nav() {
                   <Typography>Odkryj roślinę</Typography>
                 </MenuItem>
               </Link>
+              <IconButton>
+                <ShoppingBasketIcon sx={{ color: "green" }} />
+              </IconButton>
+              {/* <Popover
+                id="mouse-over-popover"
+                sx={{
+                  pointerEvents: "none",
+                }}
+                open={open}
+                anchorEl={basketAnchorEl}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                onClose={handlePopoverClose}
+                disableRestoreFocus
+              >
+                <Typography sx={{ p: 1 }}>I use Popover.</Typography>
+              </Popover> */}
               {userInfo.isLoggedIn ? (
                 <IconButton onClick={() => dispatch(logout())}>
                   <LogoutIcon sx={{ color: "red" }} />
