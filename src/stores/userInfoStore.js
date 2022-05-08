@@ -6,7 +6,6 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     email: "",
-    login: "",
     roles: [],
     loginPending: false,
     error: null,
@@ -66,18 +65,15 @@ export const loginUser = (username, password) => (dispatch) => {
   auth
     .login({ username, password })
     .then((res) => {
-      console.log(res);
-      // const states = {
-      //   email: res.data.userInfo.email,
-      //   login: res.data.userInfo.login,
-      //   roles: res.data.userInfo.roles,
-      //   token: res.data.tokens.accessToken,
-      //   refreshToken: res.data.tokens.refreshToken,
-      // };
-      // dispatch(USER_LOGIN_SUCCESS(states));
+      const states = {
+        email: username,
+        roles: [],
+        token: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+      };
+      dispatch(USER_LOGIN_SUCCESS(states));
     })
     .catch((err) => {
-      console.log(err);
       dispatch(USER_LOGIN_ERROR({ error: LOGIN_ERROR_MESSAGE }));
     });
 };

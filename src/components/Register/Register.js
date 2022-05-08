@@ -41,7 +41,9 @@ const Register = () => {
     auth
       .register(user)
       .then((res) => {
-        navigate("/login");
+        auth.confirmAccount(res.data).then((res) => {
+          navigate("/logowanie");
+        });
       })
       .catch((err) => {
         setError(true);
