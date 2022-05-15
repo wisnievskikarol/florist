@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -21,6 +21,7 @@ import { addProductToBasket } from "../../stores/basketStore";
 const ProductView = () => {
   const { id } = useParams();
   const productData = useSelector((state) => state.plants.store[id]);
+  const [amount, setAmount] = useState(1);
   const dispatch = useDispatch();
 
   const useStyles = makeStyles({
@@ -43,7 +44,6 @@ const ProductView = () => {
     },
   });
   const classes = useStyles();
-  console.log("ID", id, productData);
 
   return (
     <Container maxWidth="xl" sx={{ marginBottom: "50px" }}>
@@ -102,6 +102,12 @@ const ProductView = () => {
                 id="outlined-basic"
                 disabled={!productData.inStock}
                 label="ilość"
+                value={amount}
+                onChange={(e) =>
+                  e.target.value >= 0 && e.target.value <= productData.quantity
+                    ? setAmount(e.target.value)
+                    : null
+                }
                 variant="outlined"
               />
               <Stack spacing={2} direction="row">
@@ -113,7 +119,9 @@ const ProductView = () => {
                   Kup teraz
                 </Button>
                 <Button
-                  onClick={() => dispatch(addProductToBasket(productData))}
+                  onClick={() =>
+                    dispatch(addProductToBasket(productData, amount))
+                  }
                   className={classes.root}
                   disabled={!productData.inStock}
                   variant="outlined"

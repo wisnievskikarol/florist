@@ -23,7 +23,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
-import YardIcon from "@mui/icons-material/Yard";
+import basketPosition from "../../img/basketPosition.png";
+import { useNavigate } from "react-router-dom";
 import "./Nav.scss";
 
 export default function Nav() {
@@ -33,6 +34,7 @@ export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const userInfo = useSelector((state) => state.user);
   const basketInfo = useSelector((state) => state.basket.products);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   console.log("basket info", basketInfo);
@@ -53,22 +55,6 @@ export default function Nav() {
 
   const open = Boolean(basketAnchorEl);
 
-  // React.useEffect(() => {
-  //   function handleResize() {
-  //     console.log(
-  //       "resized to: ",
-  //       window.innerWidth,
-  //       "x",
-  //       window.innerHeight,
-  //       " ",
-  //       view
-  //     );
-  //     window.innerWidth >= 1000 ? setView("desktop") : setView("mobile");
-  //   }
-
-  //   window.addEventListener("resize", handleResize);
-  // });
-
   const handleChange = (event) => {
     // setAuth(event.target.checked);
   };
@@ -82,34 +68,16 @@ export default function Nav() {
   };
   return (
     <Box sx={{ marginBottom: "96px" }}>
-      {/* <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? "Logout" : "Login"}
-        />
-      </FormGroup> */}
       <AppBar
         style={{ backgroundColor: "white" }}
         position="fixed"
         elevation={0}
         sx={{ paddingY: 2 }}
-        // position="fixed"
       >
         <Toolbar>
           <Toolbar variant="h6" component="div" sx={{ flexGrow: 2 }}>
             <Link to="/">
-              <img
-                src={Logo}
-                style={{ width: "110px" }}
-                alt="logo"
-                // sx={{ mr: 2, marginLeft: "20%" }}
-              />
+              <img src={Logo} style={{ width: "110px" }} alt="logo" />
             </Link>
           </Toolbar>
           {userInfo.isLoggedIn && (
@@ -158,6 +126,7 @@ export default function Nav() {
                 </MenuItem>
               </Link>
               <IconButton
+                onClick={() => navigate("/koszyk")}
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
               >
@@ -178,7 +147,6 @@ export default function Nav() {
                   horizontal: "left",
                 }}
                 onClose={handlePopoverClose}
-                disableRestoreFocus
               >
                 <Box sx={{ padding: 3 }}>
                   {basketInfo.length === 0 ? (
@@ -193,24 +161,51 @@ export default function Nav() {
                       }}
                     >
                       <Typography
-                        sx={{ fontWeight: "bold", textAlign: "center" }}
+                        sx={{
+                          fontWeight: "bold",
+                          textAlign: "center",
+                          marginBottom: 2,
+                        }}
                       >
                         Mój koszyk
                       </Typography>
                       <Divider />
                       {basketInfo.map((product) => (
-                        <ListItem>
-                          <ListItemAvatar>
-                            <Avatar sx={{ backgroundColor: "#0a5c5c" }}>
-                              <YardIcon />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={product.name}
-                            secondary={`${product.price} zł`}
-                            primaryTypographyProps={{ fontWeight: "bold" }}
-                          />
-                        </ListItem>
+                        <>
+                          <ListItem>
+                            <ListItemAvatar>
+                              <Avatar src={basketPosition} />
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={product.name}
+                              secondary={
+                                <React.Fragment>
+                                  <Typography
+                                    sx={{
+                                      display: "inline",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Cena:
+                                  </Typography>
+                                  {` ${product.price} zł`}
+                                  <Typography
+                                    sx={{
+                                      display: "inline",
+                                      fontWeight: "bold",
+                                      marginLeft: 1,
+                                    }}
+                                  >
+                                    Ilość:
+                                  </Typography>
+                                  {` ${product.amountInBasket}`}
+                                </React.Fragment>
+                              }
+                              primaryTypographyProps={{ fontWeight: "bold" }}
+                            />
+                          </ListItem>
+                          <Divider />
+                        </>
                       ))}
                     </List>
                   )}

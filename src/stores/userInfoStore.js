@@ -61,7 +61,6 @@ export const checkAuth = () => (dispatch) => {
 
 export const loginUser = (username, password) => (dispatch) => {
   dispatch(USER_LOGIN_PENDING());
-  console.log({ username, password });
   auth
     .login({ username, password })
     .then((res) => {
