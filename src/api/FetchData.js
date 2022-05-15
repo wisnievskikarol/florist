@@ -6,7 +6,7 @@ const API_URL = "https://plants-for-you.herokuapp.com";
 const getHeaders = () => {
   return {
     headers: {
-      authorization: `Bearer ${store.getState().user.token}`,
+      authorization: `${store.getState().user.token}`,
     },
   };
 };
