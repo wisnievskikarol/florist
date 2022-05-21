@@ -9,7 +9,6 @@ import { useTheme } from "@mui/material/styles";
 const DiscoverPlant = () => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
-  console.log(matches);
   return (
     <Box sx={{ width: "100%" }}>
       <Grid item xs={12}>

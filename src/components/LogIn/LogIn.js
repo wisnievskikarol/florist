@@ -93,7 +93,7 @@ const LogIn = () => {
             </Typography>
           </Box>
           <GoogleLogin
-            clientId="676799456601-paba4ic78hlgr9i35gce7321lp36336g.apps.googleusercontent.com"
+            clientId="676799456601-2962t9gojc4bgukov2ptmte48m3pqtlc.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
                 variant="outlined"

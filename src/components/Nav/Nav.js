@@ -37,8 +37,6 @@ export default function Nav() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("basket info", basketInfo);
-
   const [view, setView] = React.useState(
     window.innerWidth >= 1000 ? "desktop" : "mobile"
   );
