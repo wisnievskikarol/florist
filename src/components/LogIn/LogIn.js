@@ -36,12 +36,17 @@ const LogIn = () => {
     }
   }, [userInfo.isLoggedIn]);
 
-  const handleFailure = (result) => {
-    setError("Logowanie nie powiodło się", result);
-  };
-
-  const handleLogin = async (googleData) => {
-    console.log("GOOGLE datiadawidwajdiwdjawid", googleData);
+  const responseGoogle = (response) => {
+    console.log(response);
+    if (response?.tokenObj?.access_token) {
+      dispatch(
+        loginUser(
+          response?.profileObj?.email,
+          response?.tokenObj?.access_token,
+          true
+        )
+      );
+    }
   };
 
   return (
@@ -93,7 +98,7 @@ const LogIn = () => {
             </Typography>
           </Box>
           <GoogleLogin
-            clientId="676799456601-2962t9gojc4bgukov2ptmte48m3pqtlc.apps.googleusercontent.com"
+            clientId="676799456601-hu3k0k4ko7h7s52t8p7quk7kqho87umb.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
                 variant="outlined"
@@ -113,8 +118,8 @@ const LogIn = () => {
               </Button>
             )}
             buttonText="Login"
-            onSuccess={handleLogin}
-            onFailure={handleFailure}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
             isSignedIn={true}
           />
