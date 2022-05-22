@@ -37,11 +37,11 @@ const LogIn = () => {
   }, [userInfo.isLoggedIn]);
 
   const handleFailure = (result) => {
-    setError("Logowanie nie powiodło się");
+    setError("Logowanie nie powiodło się", result);
   };
 
   const handleLogin = async (googleData) => {
-    console.log(googleData);
+    console.log("GOOGLE datiadawidwajdiwdjawid", googleData);
   };
 
   return (
@@ -178,7 +178,7 @@ const LogIn = () => {
               },
             }}
             variant="outlined"
-            onClick={() => dispatch(loginUser(login, password))}
+            onClick={() => dispatch(loginUser(login, password, false))}
           >
             {!userInfo.loginPending ? (
               <Typography>Zaloguj się</Typography>

@@ -59,13 +59,13 @@ export const checkAuth = () => (dispatch) => {
     });
 };
 
-export const loginUser = (username, password) => (dispatch) => {
+export const loginUser = (username, password, oauth) => (dispatch) => {
   dispatch(USER_LOGIN_PENDING());
   auth
-    .login({ username, password })
+    .login({ username, password, oauth })
     .then((res) => {
       const states = {
-        email: username,
+        username: username,
         roles: [],
         token: res.data.access_token,
         refreshToken: res.data.refresh_token,
