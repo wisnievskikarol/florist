@@ -40,11 +40,7 @@ const LogIn = () => {
     console.log(response);
     if (response?.tokenObj?.access_token) {
       dispatch(
-        loginUser(
-          response?.profileObj?.email,
-          response?.tokenObj?.access_token,
-          true
-        )
+        loginUser(response?.profileObj?.email, response?.access_token, true)
       );
     }
   };
