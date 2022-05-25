@@ -10,13 +10,10 @@ import {
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import OrderItem from "../../components/OrderItem/OrderItem";
-import blik from "../../img/blik.png";
-import gpay from "../../img/gpay.png";
-import masterCard from "../../img/mastercard.jpeg";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import monstera from "../../img/monstera.png";
 import aloes from "../../img/aloes.png";
-import PaymentIcon from "@mui/icons-material/Payment";
+import GooglePayButton from "@google-pay/button-react";
 
 const MakeOrder = () => {
   const products = useSelector((state) => state.basket.products);
@@ -112,60 +109,48 @@ const MakeOrder = () => {
             marginBottom: 5,
           }}
         >
-          Forma płatności
+          Płatność
         </Typography>
-        <Grid container direction="row" sx={{ marginBottom: 10 }}>
-          <Grid item xs={4}>
-            <Avatar
-              src={blik}
-              onClick={() => setPaymentMethod(0)}
-              variant="rounded"
-              sx={{
-                width: 200,
-                height: 200,
-                cursor: "pointer",
-                border: paymentMethod === 0 ? "1px solid" : null,
-              }}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <Avatar
-              onClick={() => setPaymentMethod(1)}
-              variant="rounded"
-              src={gpay}
-              sx={{
-                width: 200,
-                height: 200,
-                cursor: "pointer",
-                border: paymentMethod === 1 ? "1px solid" : null,
-              }}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <Avatar
-              onClick={() => setPaymentMethod(2)}
-              variant="rounded"
-              src={masterCard}
-              sx={{
-                width: 300,
-                height: 200,
-                cursor: "pointer",
-                border: paymentMethod === 2 ? "1px solid" : null,
-              }}
-            />
-          </Grid>
+        <Grid item xs={12} sx={{ marginBottom: 5 }}>
+          <GooglePayButton
+            environment="TEST"
+            paymentRequest={{
+              apiVersion: 2,
+              apiVersionMinor: 0,
+              allowedPaymentMethods: [
+                {
+                  type: "CARD",
+                  parameters: {
+                    allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                    allowedCardNetworks: ["MASTERCARD"],
+                  },
+                  tokenizationSpecification: {
+                    type: "PAYMENT_GATEWAY",
+                    parameters: {
+                      gateway: "example",
+                      gatewayMerchantId: "exampleGatewayMerchantId",
+                    },
+                  },
+                },
+              ],
+              merchantInfo: {
+                merchantId: "12345678901234567890",
+                merchantName: "Demo Merchant",
+              },
+              transactionInfo: {
+                totalPriceStatus: "FINAL",
+                totalPriceLabel: "Total",
+                totalPrice: "10000",
+                currencyCode: "PLN",
+                countryCode: "PL",
+              },
+            }}
+            onLoadPaymentData={(paymentRequest) => {
+              console.log("Success", paymentRequest);
+            }}
+            existingPaymentMethodRequired={false}
+          />
         </Grid>
-      </Grid>
-      <Grid item xs={12} align="center">
-        <Button
-          variant="contained"
-          sx={{ marginBottom: 10, backgroundColor: "#0a5c5c" }}
-          endIcon={<PaymentIcon />}
-        >
-          <Typography sx={{ fontWeight: "bold" }}>
-            Przejdź do płatności
-          </Typography>
-        </Button>
       </Grid>
     </Grid>
   );

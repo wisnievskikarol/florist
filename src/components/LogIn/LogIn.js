@@ -38,10 +38,8 @@ const LogIn = () => {
 
   const responseGoogle = (response) => {
     console.log(response);
-    if (response?.tokenObj?.access_token) {
-      dispatch(
-        loginUser(response?.profileObj?.email, response?.access_token, true)
-      );
+    if (response?.accessToken) {
+      dispatch(loginUser(response?.profileObj?.email, response?.tokenId, true));
     }
   };
 
