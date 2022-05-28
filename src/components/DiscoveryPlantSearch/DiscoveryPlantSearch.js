@@ -107,7 +107,8 @@ const DiscoverPlant = () => {
                     <Grid item xd={12} md={8}>
                         <Box style={{display: "flex", gap: "20px", flexWrap: "wrap"}}>
                             {filteredItems.map((el, id) => {
-                                return <Link to={`/sklep/${id}`}> <ProductCard key={id} size="sm" price={el.price}
+                                return <Link to={`/sklep/${id}`}> <ProductCard img={el.imgURL} key={id} size="sm"
+                                                                               price={el.price}
                                                                                name={el.name}/> </Link>;
                             })}
                         </Box>

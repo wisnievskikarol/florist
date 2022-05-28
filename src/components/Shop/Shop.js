@@ -64,8 +64,9 @@ const Shop = () => {
                         <h2>Produkty</h2>
                         <Box sx={{display: "flex", flexWrap: "wrap", gap: "50px"}} spacing={5}>
                             {plants.map((el, id) => {
-                                return <Link to={`/sklep/${id}`}> <ProductCard id={id} name={el.name} size="sm"
-                                                                               price={el.price}/></Link>
+                                return <Link to={`/sklep/${el.id}`}> <ProductCard img={el.imgURL} id={id} name={el.name}
+                                                                                  size="sm"
+                                                                                  price={el.price}/></Link>
                             })}
                         </Box>
                     </Grid>
