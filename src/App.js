@@ -14,6 +14,7 @@ import {noAuth} from "./api/FetchData";
 import Basket from "../src/screens/Basket/Bakset";
 import MakeOrder from "./screens/MakeOrder/MakeOrder";
 import TermsOfService from "./components/Footer/TermsOfService"
+import PrivacyPolicy from "./components/Footer/ PrivacyPolicy";
 
 function App() {
     const dispatch = useDispatch();
@@ -35,8 +36,7 @@ function App() {
                     <Route path="/koszyk" element={<Basket/>}/>
                     <Route path="/zlozZamowienie" element={<MakeOrder/>}/>
                     <Route path="/regulamin" element={<TermsOfService/>}/>
-
-                    {/*TermsOfService*/}
+                    <Route path="/PolitykaPrywatnosci" element={<PrivacyPolicy/>}/>
                 </Routes>
                 <Footer/>
             </BrowserRouter>

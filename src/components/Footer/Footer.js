@@ -55,6 +55,12 @@ const Footer = () => {
                             >
                                 <ListItem disablePadding>Regulamin</ListItem>
                             </Link>
+                            <Link
+                                href="/PolitykaPrywatnosci"
+                                color="inherit"
+                            >
+                                <ListItem disablePadding>Polityka Prywatnosci</ListItem>
+                            </Link>
 
 
                         </Grid>
