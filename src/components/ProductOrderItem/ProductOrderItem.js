@@ -5,13 +5,13 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import image from "../../img/finalPriceImg.jpeg";
 
-const OrderItem = ({ product }) => {
+const ProductOrderItem = ({ product }) => {
   return (
     <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
       <CardMedia
         component="img"
-        height="140"
-        image={image}
+        height="200"
+        image={product.imgURL}
         alt="green iguana"
       />
       <CardContent>
@@ -40,4 +40,4 @@ const OrderItem = ({ product }) => {
   );
 };
 
-export default OrderItem;
+export default ProductOrderItem;

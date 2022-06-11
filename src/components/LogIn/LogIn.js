@@ -25,7 +25,6 @@ const LogIn = () => {
   const theme = useTheme();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState(false);
-  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user);
   const navigate = useNavigate();
@@ -37,10 +36,13 @@ const LogIn = () => {
   }, [userInfo.isLoggedIn]);
 
   const responseGoogle = (response) => {
-    console.log(response);
     if (response?.accessToken) {
       dispatch(loginUser(response?.profileObj?.email, response?.tokenId, true));
     }
+  };
+
+  const failureResponse = () => {
+    return null;
   };
 
   return (
@@ -113,9 +115,9 @@ const LogIn = () => {
             )}
             buttonText="Login"
             onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onFailure={failureResponse}
             cookiePolicy={"single_host_origin"}
-            isSignedIn={true}
+            isSignedIn={false}
           />
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box sx={{ width: "140px", margin: "20px 0  20px 0" }}>

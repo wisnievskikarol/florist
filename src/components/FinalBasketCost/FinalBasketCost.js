@@ -4,13 +4,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import image from "../../img/finalPriceImg.jpeg";
+import image from "../../img/finalPlant.jpeg";
+import { order } from "../../api/FetchData";
 
 const FinalBasketCost = ({ products, navigate }) => {
   const [finalPrice, setFinalPrice] = useState(0);
 
   useEffect(() => {
     if (products) {
+      console.log("Products", products);
       let price = 0;
       products.forEach((product) => {
         price += product.price * product.amountInBasket;
@@ -18,6 +20,24 @@ const FinalBasketCost = ({ products, navigate }) => {
       setFinalPrice(price);
     }
   }, [products]);
+
+  const makeOrder = async () => {
+    order
+      .addToBasket({
+        products: products.map((product) => {
+          return {
+            plantId: product.id,
+            amountInBasket: product.amountInBasket,
+          };
+        }),
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Card sx={{ maxWidth: 345, marginTop: 10, marginBottom: 10 }}>
@@ -57,9 +77,9 @@ const FinalBasketCost = ({ products, navigate }) => {
         variant="outlined"
         color="secondary"
         sx={{ marginTop: 2, marginBottom: 2 }}
-        onClick={() => (finalPrice > 0 ? navigate("/zlozZamowienie") : null)}
+        onClick={makeOrder}
       >
-        Idź do kasy
+        Złóż zamowienie
       </Button>
     </Card>
   );

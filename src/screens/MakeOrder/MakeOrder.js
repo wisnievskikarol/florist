@@ -6,10 +6,9 @@ import {
   Divider,
   TextField,
   Avatar,
-  Button,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import OrderItem from "../../components/OrderItem/OrderItem";
+import ProductOrderItem from "../../components/ProductOrderItem/ProductOrderItem";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import monstera from "../../img/monstera.png";
 import aloes from "../../img/aloes.png";
@@ -18,7 +17,6 @@ import GooglePayButton from "@google-pay/button-react";
 const MakeOrder = () => {
   const products = useSelector((state) => state.basket.products);
   const dispatch = useDispatch();
-  const [paymentMethod, setPaymentMethod] = React.useState(0);
 
   return (
     <Grid container direction="row">
@@ -38,8 +36,8 @@ const MakeOrder = () => {
           </Typography>
           <Grid container direction="row">
             {products.map((product) => (
-              <Grid item xs={products.length === 1 ? 12 : 6}>
-                <OrderItem product={product} />
+              <Grid item xs={products.length === 1 ? 12 : 4}>
+                <ProductOrderItem product={product} />
               </Grid>
             ))}
           </Grid>
@@ -122,7 +120,7 @@ const MakeOrder = () => {
                   type: "CARD",
                   parameters: {
                     allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                    allowedCardNetworks: ["MASTERCARD"],
+                    allowedCardNetworks: ["MASTERCARD", "VISA"],
                   },
                   tokenizationSpecification: {
                     type: "PAYMENT_GATEWAY",
@@ -135,7 +133,7 @@ const MakeOrder = () => {
               ],
               merchantInfo: {
                 merchantId: "12345678901234567890",
-                merchantName: "Demo Merchant",
+                merchantName: "Zamówienie #1267",
               },
               transactionInfo: {
                 totalPriceStatus: "FINAL",

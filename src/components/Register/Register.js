@@ -15,10 +15,11 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Img from "../../img/discoverPlant.png";
 import Or from "../../img/or.svg";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../api/FetchData";
 import { GoogleLogin } from "react-google-login";
+import { loginUser } from "../../stores/userInfoStore";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -26,6 +27,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const userInfo = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -41,9 +43,7 @@ const Register = () => {
     auth
       .register(user)
       .then((res) => {
-        auth.confirmAccount(res.data).then((res) => {
-          navigate("/logowanie");
-        });
+        navigate("/logowanie");
       })
       .catch((err) => {
         setError(true);
@@ -54,11 +54,14 @@ const Register = () => {
   };
 
   const handleFailure = (result) => {
-    setError("Logowanie nie powiodło się");
+    return null;
   };
 
-  const handleLogin = async (googleData) => {
-    console.log(googleData);
+  const handleLogin = async (response) => {
+    if (response?.accessToken) {
+      dispatch(loginUser(response?.profileObj?.email, response?.tokenId, true));
+      navigate("/");
+    }
   };
 
   return (
@@ -110,7 +113,7 @@ const Register = () => {
             </Typography>
           </Box>
           <GoogleLogin
-            clientId="676799456601-paba4ic78hlgr9i35gce7321lp36336g.apps.googleusercontent.com"
+            clientId="676799456601-hu3k0k4ko7h7s52t8p7quk7kqho87umb.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
                 variant="outlined"
@@ -133,7 +136,7 @@ const Register = () => {
             onSuccess={handleLogin}
             onFailure={handleFailure}
             cookiePolicy={"single_host_origin"}
-            isSignedIn={true}
+            isSignedIn={false}
           />
 
           <Box sx={{ display: "flex", justifyContent: "center" }}>

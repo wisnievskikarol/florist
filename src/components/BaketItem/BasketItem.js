@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
-import { TextField, Grid } from "@mui/material";
+import { TextField, Grid, Box } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import basketPosition from "../../img/basketPosition.png";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -23,9 +23,12 @@ const BasketItem = ({
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   return (
-    <ListItem alignItems="center" divider>
+    <ListItem alignItems="center" divider sx={{ marginTop: 3 }}>
       <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src={basketPosition} />
+        <Avatar
+          alt="Remy Sharp"
+          src={product.imgURL ? product.imgURL : basketPosition}
+        />
       </ListItemAvatar>
       <ListItemText
         primary={product.name}
@@ -44,38 +47,40 @@ const BasketItem = ({
         }
         primaryTypographyProps={{ fontWeight: "bold" }}
       />
-      <Grid container direction="row" alignItems="center">
-        <Grid item xs={12} md={3} align="right">
-          <AddCircleOutlineIcon
-            sx={{ cursor: "pointer" }}
-            onClick={() => addProductToBasket(product)}
-          />
+      <Box sx={{ width: "80%" }}>
+        <Grid container direction="row" alignItems="center">
+          <Grid item xs={12} md={3} align="right">
+            <AddCircleOutlineIcon
+              sx={{ cursor: "pointer" }}
+              onClick={() => addProductToBasket(product)}
+            />
+          </Grid>
+          <Grid item xs={12} md={4} align="center">
+            <TextField
+              label="Ilość"
+              disabled
+              value={product.amountInBasket}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">{` / ${product.quantity}`}</InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={3} align={matches ? "right" : "left"}>
+            <RemoveIcon
+              sx={{ cursor: "pointer" }}
+              onClick={() => removeOneFromBasket(product)}
+            />
+          </Grid>
+          <Grid item xs={12} md={2} align={matches ? "right" : "center"}>
+            <DeleteForeverIcon
+              sx={{ color: "red", cursor: "pointer" }}
+              onClick={() => removeFromBasket(product)}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4} align="center">
-          <TextField
-            label="Ilość"
-            disabled
-            value={product.amountInBasket}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">{` / ${product.quantity}`}</InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} md={3} align={matches ? "right" : "left"}>
-          <RemoveIcon
-            sx={{ cursor: "pointer" }}
-            onClick={() => removeOneFromBasket(product)}
-          />
-        </Grid>
-        <Grid item xs={12} md={2} align={matches ? "right" : "center"}>
-          <DeleteForeverIcon
-            sx={{ color: "red", cursor: "pointer" }}
-            onClick={() => removeFromBasket(product)}
-          />
-        </Grid>
-      </Grid>
+      </Box>
     </ListItem>
   );
 };

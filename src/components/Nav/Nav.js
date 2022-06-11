@@ -24,8 +24,19 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import basketPosition from "../../img/basketPosition.png";
+import Badge from "@mui/material/Badge";
+import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import "./Nav.scss";
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    right: -3,
+    top: 13,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}));
 
 export default function Nav() {
   const theme = useTheme();
@@ -128,7 +139,17 @@ export default function Nav() {
                 onMouseEnter={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
               >
-                <ShoppingBasketIcon sx={{ color: "#0a5c5c" }} />
+                {basketInfo.length > 0 ? (
+                  <StyledBadge
+                    sx={{ marginRight: 3 }}
+                    badgeContent={basketInfo.length}
+                    color="secondary"
+                  >
+                    <ShoppingBasketIcon sx={{ color: "#0a5c5c" }} />
+                  </StyledBadge>
+                ) : (
+                  <ShoppingBasketIcon sx={{ color: "#0a5c5c" }} />
+                )}
               </IconButton>
               <Popover
                 sx={{
@@ -172,7 +193,13 @@ export default function Nav() {
                         <>
                           <ListItem>
                             <ListItemAvatar>
-                              <Avatar src={basketPosition} />
+                              <Avatar
+                                src={
+                                  product?.imgURL
+                                    ? product.imgURL
+                                    : basketPosition
+                                }
+                              />
                             </ListItemAvatar>
                             <ListItemText
                               primary={product.name}
