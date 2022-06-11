@@ -15,6 +15,8 @@ import Basket from "../src/screens/Basket/Bakset";
 import MakeOrder from "./screens/MakeOrder/MakeOrder";
 import TermsOfService from "./components/Footer/TermsOfService";
 import PrivacyPolicy from "./components/Footer/ PrivacyPolicy";
+import MyOrders from "./screens/MyOrders/MyOrders";
+import OrderOverview from "./screens/OrderOverview/OrderOverview";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +36,9 @@ function App() {
           <Route path="/sklep/:id" element={<ProductView />} />
           <Route path="/OdkryjRosline" element={<DiscoveryPlantSearch />} />
           <Route path="/koszyk" element={<Basket />} />
-          <Route path="/zlozZamowienie" element={<MakeOrder />} />
+          <Route path="/dokonczZamowienie" element={<MakeOrder />} />
+          <Route path="/mojeZamowienia" element={<MyOrders />} />
+          <Route path="/podgladZamowienia/:id" element={<OrderOverview />} />
           <Route path="/regulamin" element={<TermsOfService />} />
           <Route path="/PolitykaPrywatnosci" element={<PrivacyPolicy />} />
         </Routes>

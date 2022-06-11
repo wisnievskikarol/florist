@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -6,17 +6,39 @@ import {
   Divider,
   TextField,
   Avatar,
+  Button,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import ProductOrderItem from "../../components/ProductOrderItem/ProductOrderItem";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import monstera from "../../img/monstera.png";
 import aloes from "../../img/aloes.png";
-import GooglePayButton from "@google-pay/button-react";
+import { clear_basket } from "../../stores/basketStore";
+import { order } from "../../api/FetchData";
+import { useNavigate } from "react-router-dom";
 
 const MakeOrder = () => {
   const products = useSelector((state) => state.basket.products);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const makeOrder = () => {
+    order
+      .makeOrder({ phoneNumber, postalCode, street, city })
+      .then((res) => {
+        dispatch(clear_basket());
+        navigate("/mojeZamowienia");
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Błąd składania zamówienia");
+      });
+  };
 
   return (
     <Grid container direction="row">
@@ -34,7 +56,7 @@ const MakeOrder = () => {
           >
             Twoje Zamówienie
           </Typography>
-          <Grid container direction="row">
+          <Grid container direction="row" justifyContent="center">
             {products.map((product) => (
               <Grid item xs={products.length === 1 ? 12 : 4}>
                 <ProductOrderItem product={product} />
@@ -74,19 +96,36 @@ const MakeOrder = () => {
               }}
             >
               <Box>
-                <TextField label="Imię" variant="standard" fullWidth />
+                <TextField
+                  label="Telefon"
+                  variant="standard"
+                  fullWidth
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
               </Box>
               <Box sx={{ marginTop: 1 }}>
-                <TextField label="Nazwisko" variant="standard" fullWidth />
+                <TextField
+                  label="Kod pocztowy"
+                  variant="standard"
+                  fullWidth
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
               </Box>
               <Box sx={{ marginTop: 1 }}>
-                <TextField label="Telefon" variant="standard" fullWidth />
+                <TextField
+                  label="Miasto"
+                  variant="standard"
+                  fullWidth
+                  onChange={(e) => setCity(e.target.value)}
+                />
               </Box>
               <Box sx={{ marginTop: 1 }}>
-                <TextField label="Email" variant="standard" fullWidth />
-              </Box>
-              <Box sx={{ marginTop: 1 }}>
-                <TextField label="Adres dostawy" variant="standard" fullWidth />
+                <TextField
+                  label="Ulica"
+                  variant="standard"
+                  fullWidth
+                  onChange={(e) => setStreet(e.target.value)}
+                />
               </Box>
             </Box>
           </Grid>
@@ -97,58 +136,23 @@ const MakeOrder = () => {
       </Grid>
       <Grid item xs={12} align="center">
         <Divider />
-        <Typography
+        <Button
+          variant="outlined"
           sx={{
+            marginTop: "20px",
             color: "#0a5c5c",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: 30,
-            marginTop: 5,
-            marginBottom: 5,
+            borderColor: "#0a5c5c",
+            borderRadius: "30px",
+            "&:hover": {
+              background: "#0a5c5c",
+              color: "white",
+            },
           }}
+          onClick={makeOrder}
         >
-          Płatność
-        </Typography>
-        <Grid item xs={12} sx={{ marginBottom: 5 }}>
-          <GooglePayButton
-            environment="TEST"
-            paymentRequest={{
-              apiVersion: 2,
-              apiVersionMinor: 0,
-              allowedPaymentMethods: [
-                {
-                  type: "CARD",
-                  parameters: {
-                    allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-                    allowedCardNetworks: ["MASTERCARD", "VISA"],
-                  },
-                  tokenizationSpecification: {
-                    type: "PAYMENT_GATEWAY",
-                    parameters: {
-                      gateway: "example",
-                      gatewayMerchantId: "exampleGatewayMerchantId",
-                    },
-                  },
-                },
-              ],
-              merchantInfo: {
-                merchantId: "12345678901234567890",
-                merchantName: "Zamówienie #1267",
-              },
-              transactionInfo: {
-                totalPriceStatus: "FINAL",
-                totalPriceLabel: "Total",
-                totalPrice: "10000",
-                currencyCode: "PLN",
-                countryCode: "PL",
-              },
-            }}
-            onLoadPaymentData={(paymentRequest) => {
-              console.log("Success", paymentRequest);
-            }}
-            existingPaymentMethodRequired={false}
-          />
-        </Grid>
+          <Typography>Złóż zamówienie</Typography>
+        </Button>
+        <Grid item xs={12} sx={{ marginBottom: 5 }}></Grid>
       </Grid>
     </Grid>
   );

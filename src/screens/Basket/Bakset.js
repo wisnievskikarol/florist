@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const Basket = () => {
   const products = useSelector((state) => state.basket.products);
+  const userInfo = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,7 +54,11 @@ const Basket = () => {
             ))}
           </List>
           {products.length > 0 ? (
-            <FinalBasketCost products={products} navigate={navigate} />
+            <FinalBasketCost
+              products={products}
+              navigate={navigate}
+              isLoggedIn={userInfo?.isLoggedIn}
+            />
           ) : null}
         </Box>
       </Grid>

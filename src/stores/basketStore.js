@@ -12,10 +12,15 @@ export const basketSlice = createSlice({
         products: action.payload,
       };
     },
+    clear_basket: (state) => {
+      return {
+        products: [],
+      };
+    },
   },
 });
 
-export const { set_products } = basketSlice.actions;
+export const { set_products, clear_basket } = basketSlice.actions;
 
 export const addProductToBasket = (product, amount) => (dispatch) => {
   const basketProducts = store.getState().basket.products;
@@ -76,6 +81,10 @@ export const removeProductFromBasket = (product) => (dispatch) => {
   products = products.filter((productData) => productData.id !== product.id);
 
   dispatch(set_products(products));
+};
+
+export const clearBasket = () => (dispatch) => {
+  dispatch(clear_basket());
 };
 
 export default basketSlice.reducer;

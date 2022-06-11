@@ -1,15 +1,17 @@
-import React from "react";
-import {
-  Typography,
-  Box,
-  Grid,
-  Divider,
-  TextField,
-  Avatar,
-} from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Typography, Box, Grid } from "@mui/material";
+import { order } from "../../api/FetchData";
+import OrderItem from "../../components/OrderItem/OrderItem";
 
 const MyOrders = () => {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    order.takeAll().then((res) => {
+      setOrders(res.data);
+    });
+  }, []);
+
   return (
     <Grid container direction="row">
       <Grid item xs={12} align="center">
@@ -27,6 +29,10 @@ const MyOrders = () => {
             Twoje Zamówienia
           </Typography>
         </Box>
+
+        {orders.map((order) => (
+          <OrderItem order={order} />
+        ))}
       </Grid>
     </Grid>
   );

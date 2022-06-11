@@ -7,12 +7,11 @@ import Typography from "@mui/material/Typography";
 import image from "../../img/finalPlant.jpeg";
 import { order } from "../../api/FetchData";
 
-const FinalBasketCost = ({ products, navigate }) => {
+const FinalBasketCost = ({ products, navigate, isLoggedIn }) => {
   const [finalPrice, setFinalPrice] = useState(0);
 
   useEffect(() => {
     if (products) {
-      console.log("Products", products);
       let price = 0;
       products.forEach((product) => {
         price += product.price * product.amountInBasket;
@@ -32,11 +31,15 @@ const FinalBasketCost = ({ products, navigate }) => {
         }),
       })
       .then((res) => {
-        console.log(res);
+        navigate("/dokonczZamowienie");
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const redirect = () => {
+    navigate("/Logowanie");
   };
 
   return (
@@ -77,9 +80,9 @@ const FinalBasketCost = ({ products, navigate }) => {
         variant="outlined"
         color="secondary"
         sx={{ marginTop: 2, marginBottom: 2 }}
-        onClick={makeOrder}
+        onClick={isLoggedIn ? makeOrder : redirect}
       >
-        Złóż zamowienie
+        {isLoggedIn ? "Uzupełnij dane adresowe" : "Zaloguj się aby kontynuować"}
       </Button>
     </Card>
   );

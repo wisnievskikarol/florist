@@ -27,6 +27,7 @@ import basketPosition from "../../img/basketPosition.png";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import orderHistoryIcon from "../../img/orderHistoryIcon.png";
 import "./Nav.scss";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -134,6 +135,20 @@ export default function Nav() {
                   <Typography>Odkryj roślinę</Typography>
                 </MenuItem>
               </Link>
+              {userInfo.isLoggedIn ? (
+                <Avatar
+                  variant="square"
+                  onClick={() => navigate("/mojeZamowienia")}
+                  src={orderHistoryIcon}
+                  sx={{
+                    color: "#0a5c5c",
+                    width: 25,
+                    height: 25,
+                    cursor: "pointer",
+                    marginRight: 2,
+                  }}
+                />
+              ) : null}
               <IconButton
                 onClick={() => navigate("/koszyk")}
                 onMouseEnter={handlePopoverOpen}
@@ -237,7 +252,12 @@ export default function Nav() {
                 </Box>
               </Popover>
               {userInfo.isLoggedIn ? (
-                <IconButton onClick={() => dispatch(logout())}>
+                <IconButton
+                  onClick={() => {
+                    dispatch(logout());
+                    navigate("/");
+                  }}
+                >
                   <LogoutIcon sx={{ color: "red" }} />
                 </IconButton>
               ) : (

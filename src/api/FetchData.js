@@ -1,13 +1,16 @@
 import axios from "axios";
 import { store } from "../index";
 
-const API_URL = "https://plants-for-you.herokuapp.com";
+const API_URL =
+  process.env.REACT_APP_API_URL || "https://plants-for-you.herokuapp.com";
 
 const getHeaders = () => {
   return {
     headers: {
-      Authorization: `Bearer 
-      ${store.getState().user.token ? store.getState().user.token : ""}`,
+      authorization: `Bearer ${
+        store.getState().user.token ? store.getState().user.token : ""
+      }`,
+      "Access-Control-Allow-Origin": "*",
     },
   };
 };
@@ -17,6 +20,7 @@ class Request {
   get = (url) => axios.get(`${API_URL}${url}`, getHeaders());
   put = (url, body) => axios.put(`${API_URL}${url}`, body, getHeaders());
   post = (url, body) => axios.post(`${API_URL}${url}`, body, getHeaders());
+  patch = (url, body) => axios.patch(`${API_URL}${url}`, body, getHeaders());
 }
 
 const requests = new Request();
@@ -36,6 +40,8 @@ export const noAuth = {
 
 export const order = {
   addToBasket: (payload) => requests.post("/api/v1/cart/all", payload),
-  takeOne: (id) => requests.post(`/api/v1/order/${id}`),
-  takeAll: () => requests.post("/api/v1/order/all"),
+  makeOrder: (payload) => requests.post("/api/v1/order", payload),
+  takeOne: (id) => requests.get(`/api/v1/order/${id}`),
+  takeAll: () => requests.get("/api/v1/order"),
+  updateStatus: (id, payload) => requests.patch(`/api/v1/order/${id}`, payload),
 };

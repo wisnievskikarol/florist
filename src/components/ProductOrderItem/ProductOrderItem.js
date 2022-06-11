@@ -3,9 +3,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import image from "../../img/finalPriceImg.jpeg";
 
-const ProductOrderItem = ({ product }) => {
+const ProductOrderItem = ({ product, quantity }) => {
   return (
     <Card sx={{ maxWidth: 345, marginBottom: 10 }}>
       <CardMedia
@@ -33,7 +32,7 @@ const ProductOrderItem = ({ product }) => {
           variant="body2"
           sx={{ textAlign: "left", color: "#0a5c5c", fontWeight: "bold" }}
         >
-          {`Ilość: ${product.amountInBasket} szt`}
+          {`Ilość: ${quantity ? quantity : product.amountInBasket} szt`}
         </Typography>
       </CardContent>
     </Card>
