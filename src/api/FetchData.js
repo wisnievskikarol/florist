@@ -11,7 +11,7 @@ const getHeaders = () => {
         store.getState().user.token ? store.getState().user.token : ""
       }`,
       "Access-Control-Allow-Origin": "https://plants-for-you.herokuapp.com",
-      "Access-Control-Allow-Methods": "GET, POST, PATCH",
+      "Access-Control-Allow-Methods": "GET, POST, PATCH PUT",
       "Content-Type": "application/json",
     },
   };
