@@ -23,7 +23,7 @@ const VerificationScreen = () => {
         setVerified(false);
         setLoading(false);
       });
-  });
+  }, []);
 
   return (
     <Grid

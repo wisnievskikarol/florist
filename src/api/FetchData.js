@@ -45,5 +45,5 @@ export const order = {
   makeOrder: (payload) => requests.post("/api/v1/order", payload),
   takeOne: (id) => requests.get(`/api/v1/order/${id}`),
   takeAll: () => requests.get("/api/v1/order"),
-  updateStatus: (id, payload) => requests.patch(`/api/v1/order/${id}`, payload),
+  updateStatus: (id, payload) => requests.put(`/api/v1/order/${id}`, payload),
 };
