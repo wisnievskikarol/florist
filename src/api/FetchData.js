@@ -10,7 +10,9 @@ const getHeaders = () => {
       authorization: `Bearer ${
         store.getState().user.token ? store.getState().user.token : ""
       }`,
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "https://plants-for-you.herokuapp.com",
+      "Access-Control-Allow-Methods": "GET, POST, PATCH",
+      "Content-Type": "application/json",
     },
   };
 };
