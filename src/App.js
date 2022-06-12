@@ -17,6 +17,7 @@ import TermsOfService from "./components/Footer/TermsOfService";
 import PrivacyPolicy from "./components/Footer/ PrivacyPolicy";
 import MyOrders from "./screens/MyOrders/MyOrders";
 import OrderOverview from "./screens/OrderOverview/OrderOverview";
+import VerificationScreen from "./screens/VerificationScreen/VerificationScreen";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,10 @@ function App() {
           <Route path="/podgladZamowienia/:id" element={<OrderOverview />} />
           <Route path="/regulamin" element={<TermsOfService />} />
           <Route path="/PolitykaPrywatnosci" element={<PrivacyPolicy />} />
+          <Route
+            path="Rejestracja/Weryfikacja"
+            element={<VerificationScreen />}
+          />
         </Routes>
         <Footer />
       </BrowserRouter>

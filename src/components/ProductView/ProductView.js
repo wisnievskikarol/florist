@@ -17,9 +17,11 @@ import "swiper/css/scrollbar";
 import { useDispatch, useSelector } from "react-redux";
 import { addProductToBasket } from "../../stores/basketStore";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useNavigate } from "react-router-dom";
 
 const ProductView = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const productData = useSelector((state) => state.plants.store).filter(
     (el) => el.id == id
   )[0];
@@ -122,6 +124,10 @@ const ProductView = () => {
                   className={classes.root}
                   disabled={!productData.inStock}
                   variant="outlined"
+                  onClick={() => {
+                    dispatch(addProductToBasket(productData, amount));
+                    navigate("/koszyk");
+                  }}
                 >
                   Kup teraz
                 </Button>
