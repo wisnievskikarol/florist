@@ -29,10 +29,25 @@ const MakeOrder = () => {
 
   const makeOrder = () => {
     order
-      .makeOrder({ phoneNumber, postalCode, street, city })
-      .then((res) => {
-        dispatch(clear_basket());
-        navigate("/mojeZamowienia");
+      .addToBasket({
+        products: products.map((product) => {
+          return {
+            plantId: product.id,
+            amountInBasket: product.amountInBasket,
+          };
+        }),
+      })
+      .then(() => {
+        order
+          .makeOrder({ phoneNumber, postalCode, street, city })
+          .then((res) => {
+            dispatch(clear_basket());
+            navigate("/mojeZamowienia");
+          })
+          .catch((err) => {
+            console.log(err);
+            setError("Błąd składania zamówienia");
+          });
       })
       .catch((err) => {
         console.log(err);

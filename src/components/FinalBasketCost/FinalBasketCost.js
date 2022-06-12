@@ -20,22 +20,8 @@ const FinalBasketCost = ({ products, navigate, isLoggedIn }) => {
     }
   }, [products]);
 
-  const makeOrder = async () => {
-    order
-      .addToBasket({
-        products: products.map((product) => {
-          return {
-            plantId: product.id,
-            amountInBasket: product.amountInBasket,
-          };
-        }),
-      })
-      .then((res) => {
-        navigate("/dokonczZamowienie");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const goToMakeOrder = async () => {
+    navigate("/dokonczZamowienie");
   };
 
   const redirect = () => {
@@ -80,7 +66,7 @@ const FinalBasketCost = ({ products, navigate, isLoggedIn }) => {
         variant="outlined"
         color="secondary"
         sx={{ marginTop: 2, marginBottom: 2 }}
-        onClick={isLoggedIn ? makeOrder : redirect}
+        onClick={isLoggedIn ? goToMakeOrder : redirect}
       >
         {isLoggedIn ? "Uzupełnij dane adresowe" : "Zaloguj się aby kontynuować"}
       </Button>
